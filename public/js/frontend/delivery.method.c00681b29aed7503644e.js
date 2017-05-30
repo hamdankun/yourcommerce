@@ -82,10 +82,6 @@ _Module = function ($) {
 
 _Module._onLoaded();
 
-// _elm.on('click', '.delivery-method', function(e) {
-//   _Helper._disableBtn($(this));
-// });
-
 /***/ }),
 
 /***/ 4:

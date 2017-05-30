@@ -35,6 +35,9 @@ class OrderCreated extends Mailable
     {
         return $this->from('no-reply@yourcommerce.com')
                   ->subject('Order Notification')
-                  ->markdown('emails.orders.created');
+                  ->markdown('emails.orders.created')
+                  ->with([
+                    'order' => $this->order
+                  ]);
     }
 }

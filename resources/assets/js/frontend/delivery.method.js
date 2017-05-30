@@ -10,7 +10,3 @@ _Module = (function($) {
 })(jQuery);
 
 _Module._onLoaded();
-
-// _elm.on('click', '.delivery-method', function(e) {
-//   _Helper._disableBtn($(this));
-// });

@@ -252,7 +252,7 @@ _Service = function () {
   };
 }();
 
-$(document).on('click', '.disabled-when[data-trigger=click]', function () {
+$(document).on('click', '.disabled-when[data-trigger=click]', function (e) {
   _Helper._disableBtn($(this));
 });
 

@@ -14,10 +14,10 @@ Your summary order:
   <tbody>
     @foreach($order->details as $key => $value)
       <tr>
-        <th>{{ $key+1 }}</th>
-        <th>{{ $value->product->name }}</th>
-        <th>{{ $value->qty }}</th>
-        <th>{{ $value->price }}</th>
+        <th class="text-right">{{ $key+1 }}</th>
+        <th class="text-right">{{ $value->product->name }}</th>
+        <th class="text-right">{{ $value->qty }}</th>
+        <th class="text-right">{{ $value->price }}</th>
       </tr>
     @endforeach
   </tbody>
@@ -29,7 +29,7 @@ Your summary order:
   </tfoot>
 </table>
 
-@component('mail::button', ['url' => config('app.url')])
+@component('mail::button', ['url' => config('app.base_url')])
 Button Text
 @endcomponent
 

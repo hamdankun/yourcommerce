@@ -171,7 +171,7 @@ class OrderController extends Controller
         $order['grand_total'] = Cart::total(0, '', '');
         $order = Order::create($order);
         $this->saveDetail($order);
-        // $this->destroyCartAndBiodata();
+        $this->destroyCartAndBiodata();
         $orderId = $order->id;
         $created = true;
         $message = 'Order has been created';
@@ -186,7 +186,6 @@ class OrderController extends Controller
       }
       session()->flash('order.created', $created);
       session()->flash('order.message', $message);
-      return 'success';
       return redirect()->route('order.success', [$orderId]);
 
     }

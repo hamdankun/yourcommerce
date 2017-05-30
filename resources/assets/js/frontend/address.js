@@ -29,7 +29,3 @@ _Module = (function($) {
 })(jQuery);
 
 _Module._onLoaded();
-
-// _elm.on('click', '.address', function(e) {
-//   _Helper._disableBtn($(this));
-// });

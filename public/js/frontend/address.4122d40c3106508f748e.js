@@ -103,10 +103,6 @@ _Module = function ($) {
 
 _Module._onLoaded();
 
-// _elm.on('click', '.address', function(e) {
-//   _Helper._disableBtn($(this));
-// });
-
 /***/ }),
 
 /***/ 2:
