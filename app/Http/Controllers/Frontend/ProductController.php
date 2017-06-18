@@ -41,11 +41,9 @@ class ProductController extends Controller
         return $slug === '';
       });
       $slug = $slugs->last();
-      $product = Product::select('*')
-                        ->isNew()
-                        ->findBySlug($slug)
-                        ->onDisplay()
-                        ->valid()->with('category')->first();
+      $product = Product::select('*')->isNew()->findBySlug($slug)
+                        ->onDisplay()->valid()->with('category')
+                        ->first();
 
       if (!$product) return view('layouts.404');
 
@@ -71,31 +69,30 @@ class ProductController extends Controller
      */
     public function ajaxRequest($type)
     {
+      $arguments = [];
 
-      if ($type == 'hot') {
-        $products = Product::hotProduct()->addSelect('category_id')->createdAtDesc()->limit(16)->get();
-      } else if (request()->route()->getName() == 'product.category'){
-        $category = Category::findBySlug($type)->first();
-        $perpage = request()->get('per_page') ? valid_number(request()->get('per_page')) : 16;
-        if ($category) {
-          $products = $category->products()->visibleColumn()->valid();
-        } else {
-          $products = Product::visibleColumn()->valid();
-
-        }
-
-        if (request()->has('sorting_by')) {
-          $sorting = $this->defineSorting(request()->get('sorting_by'));
-          $products = $products->orderBy($sorting['column'], $sorting['dir']);
-        } else {
-          $products = $products->createdAtDesc();
-        }
-
-        $products = $products->paginate($perpage);
+      if (request()->route()->getName() == 'product.category') {
+        $method = 'productByCategory';
+        $arguments = [$type];
       } else {
-        $products = Product::visibleColumn()->orderByRaw('RAND()');
+        $method = $type;
       }
+
+      if (method_exists($this, $method)) {
+        $products = call_user_func_array([$this, $method], $arguments);
+      } else {
+        $products = $this->default();
+      }
+
       $products = $this->toCache(request()->fullUrl(), function() use($products) {
+
+        if (request()->route()->getName() == 'product.category') {
+          $perpage = request()->get('per_page') ? valid_number(request()->get('per_page')) : 16;
+          $products = $products->paginate($perpage);
+        } else {
+          $products = $products->get();
+        }
+
         if (!$products instanceof \Illuminate\Pagination\LengthAwarePaginator) {
           foreach ($products as $key => $value) {
             $category = [];
@@ -112,6 +109,49 @@ class ProductController extends Controller
       });
 
       return response()->json(['data' => $products]);
+    }
+
+    /**
+     * For get hot product
+     * @return \App\Models\Master\Product
+     */
+    public function hot() {
+      return Product::hotProduct()->addSelect('category_id')->createdAtDesc()->limit(16);
+    }
+
+    /**
+     * For get product by category
+     * @param  string $type
+     * @return \App\Models\Master\Product
+     */
+    public function productByCategory($type)
+    {
+      $category = Category::findBySlug($type)->first();
+
+      if ($category) {
+        $products = $category->products()->visibleColumn()->valid();
+      } else {
+        $products = Product::visibleColumn()->valid();
+
+      }
+
+      if (request()->has('sorting_by')) {
+        $sorting = $this->defineSorting(request()->get('sorting_by'));
+        $products = $products->orderBy($sorting['column'], $sorting['dir']);
+      } else {
+        $products = $products->createdAtDesc();
+      }
+
+      return $products;
+    }
+
+    /**
+     * Get product by random
+     * @return \App\Models\Master\Product
+     */
+    public function default()
+    {
+      return Product::visibleColumn()->orderByRaw('RAND()');
     }
 
     /**

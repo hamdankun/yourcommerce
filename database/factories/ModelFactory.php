@@ -34,6 +34,7 @@ $factory->define(App\Models\Master\Category::class, function(Faker\Generator $fa
 $factory->define(App\Models\Master\Product::class, function(Faker\Generator $faker) {
   return [
     'category_id' => App\Models\Master\Category::orderByRaw('RAND()')->first()->id,
+    'brand_id' => App\Models\Master\Brand::orderByRaw('RAND()')->first()->id,
     'sku' => $faker->randomNumber(5),
     'name' => $faker->sentence(4),
     'is_display' => true,
@@ -70,5 +71,12 @@ $factory->define(App\Models\Master\PaymentMethod::class, function(Faker\Generato
     'name' => $faker->sentence(3),
     'description' => $faker->paragraph(10),
     'image' => $faker->imageUrl(450, 600),
+  ];
+});
+
+$factory->define(App\Models\Master\Brand::class, function(Faker\Generator $faker) {
+  return [
+    'name' => $faker->unique()->randomElement(['Armani', 'Versace', 'Carlon Burni', 'Jack Honey']),
+    'alias' => $faker->unique()->randomElement(['Ar', 'Vs', 'CB', 'JH']),
   ];
 });

@@ -2,7 +2,7 @@ var _elm = $(document);
 _Module = (function($) {
   _onLoaded = function() {
     _getCountry();
-    _defineValidator();
+    _defineValidator($('.form-address'));
   }
 
   _getCountry = function() {
@@ -18,10 +18,6 @@ _Module = (function($) {
       }
     });
   };
-
-  _defineValidator = function() {
-    $('.form-address').validator();
-  }
 
   return {
     _onLoaded: _onLoaded

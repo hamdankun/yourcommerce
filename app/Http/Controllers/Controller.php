@@ -19,7 +19,7 @@ class Controller extends BaseController
      * Get main category
      * @return void
      */
-    public function getTreeCategory()
+    public function getTreeCategory($toView = true)
     {
       $treeCategory = $this->toCache('main_categoris', function() {
         $mainCategories = $this->mainCategory();
@@ -35,9 +35,38 @@ class Controller extends BaseController
         }
         return $treeCategory;
       });
-      view()->share('main_categories', $treeCategory);
+
+      if ($toView) {
+        view()->share('main_categories', $treeCategory);
+      } else {
+        return $treeCategory;
+      }
     }
 
+    /**
+     * Get brand
+     * @param  string $slug
+     * @return \App\Models\Master\Brand
+     */
+    public function getAllBrand()
+    {
+      return $this->fetchBrand()->get();
+    }
+
+    /**
+     * Get brand by slug
+     * @param  string $slug
+     * @return \App\Models\Master\Brand
+     */
+    public function getBrandBySlug($slug)
+    {
+      return $this->fetchBrand($slug)->get();
+    }
+
+    /**
+     * Get random category
+     * @return \App\Models\Master\Category
+     */
     public function randomUrlCategory()
     {
       $pathCategory = $this->toCache('random-category', function() {
@@ -153,6 +182,7 @@ class Controller extends BaseController
               'tag' => [$product->name, $product->category->name, 'yourCommerce']
           ]);
     }
+
 
     /**
      * Audit error and write into laravel.log

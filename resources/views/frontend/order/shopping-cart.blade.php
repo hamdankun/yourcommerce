@@ -75,11 +75,13 @@
 
                     <div class="box-footer">
                         <div class="pull-left">
-                            <a href="{{ $previous_url }}" class="btn btn-default"><i class="fa fa-chevron-left"></i> Continue shopping</a>
+                            <a href="{{ $previous_url }}" class="btn btn-default disabled-when" data-trigger="click"><i class="fa fa-chevron-left"></i> Continue shopping</a>
                         </div>
                         <div class="pull-right">
+                          @if(Cart::count() > 0)
                             <button class="btn btn-default"><i class="fa fa-refresh"></i> Update basket</button>
                             <a href="{{ route('order.step-1') }}" class="btn btn-primary checkout">Proceed to checkout <i class="fa fa-chevron-right"></i></a>
+                          @endif
                         </div>
                     </div>
 

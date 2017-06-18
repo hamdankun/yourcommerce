@@ -43,6 +43,8 @@ use Cviebrock\EloquentSluggable\Sluggable;
  * @mixin \Eloquent
  * @property-read \App\Models\Master\Category $category
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Master\Product isNew()
+ * @property int $brand_id
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Master\Product whereBrandId($value)
  */
 class Product extends Model
 {
@@ -52,7 +54,7 @@ class Product extends Model
      * The fillable columns on table
      * @var array
      */
-    protected $fillable = ['category_id', 'sku', 'name', 'is_display', 'price', 'description', 'stock', 'slug'];
+    protected $fillable = ['category_id', 'sku', 'name', 'is_display', 'price', 'description', 'stock', 'slug', 'brand_id'];
 
     /**
      * Return the sluggable configuration array for this model.
@@ -82,6 +84,15 @@ class Product extends Model
     public function category()
     {
       return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    /**
+     * Product relation with brand
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function brand()
+    {
+      return $this->belongsTo(Brand::class, 'brand_id');
     }
 
     /**

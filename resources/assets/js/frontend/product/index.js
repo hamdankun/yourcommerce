@@ -5,6 +5,7 @@ _Module = (function($) {
 
   _onLoaded = function() {
     _getProductByCategory({page: 1, per_page: 16, sorting_by: _sortingBy});
+    _ProductService._getCategory();
   }
 
   _getProductByCategory = function(config) {
@@ -75,8 +76,8 @@ _Module = (function($) {
                 +'<h3><a href="'+_urlAction+'">'+product.name+'</a></h3>'
                 +'<p class="price">'+_Helper._currency(product.price, 'Rp.')+'</p>'
                 +'<p class="buttons">'
-                    +'<a href="'+_urlAction+'" class="btn btn-default">View detail</a>'
-                    +'<a href="#" data-slug="'+product.slug+'" class="btn btn-primary add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>'
+                    +'<a href="'+_urlAction+'" class="btn btn-default disabled-when" data-trigger="click">View detail</a>'
+                    +'<a href="#" data-slug="'+product.slug+'" class="btn btn-primary add-to-cart ><i class="fa fa-shopping-cart"></i>Add to cart</a>'
                 +'</p>'
             +'</div>'
         +'</div>'

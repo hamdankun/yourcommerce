@@ -25,6 +25,21 @@
                   <h2>Your Summary Order</h2>
                   <small>This is your tracking number <a href="#">{{ $order->order_number }}</a>, please use this for tracking your order</small>
                   <div class="push-bottom"></div>
+                  <form class="no-action form-horizontal">
+                    <div class="form-group">
+                      <label class="control-label col-sm-2">Payment Method</label>
+                      <div class="col-sm-9">
+                        <p class="form-control-static">: {{ $order->paymentMethod->name }}</p>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label col-sm-2">Delivery Method</label>
+                      <div class="col-sm-9">
+                        <p class="form-control-static">: {{ $order->deliveryMethod->name }}</p>
+                      </div>
+                    </div>
+                  </form>
+                  <div class="push-bottom"></div>
                   <div class="table-responsive">
                       <table class="table">
                           <thead>

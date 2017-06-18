@@ -22,7 +22,14 @@ class OrderController extends Controller
      * The path view
      * @var string
      */
-    protected $pathView = 'frontend.order';
+    const PATH_VIEW = 'frontend.order';
+
+
+    /**
+     * The prefix route
+     * @var string
+     */
+    const PREFIX_ROUTE = 'order.';
 
     /**
      * Init Tree Category
@@ -40,7 +47,7 @@ class OrderController extends Controller
     {
       $this->defaultMeta()->setTitle('Shopping Cart')->setProperty('type', 'shopping cart');
       $data['previous_url'] = $this->randomUrlCategory();
-      return view('frontend.order.shopping-cart', $data);
+      return view(static::PATH_VIEW.'.shopping-cart', $data);
     }
 
     /**
@@ -53,10 +60,10 @@ class OrderController extends Controller
 
       $this->stepList('Address');
       $this->boxFooter(
-        [route('order.shopping-cart') => 'Back to Shopping Cart'],
+        [route(static::PREFIX_ROUTE.'shopping-cart') => 'Back to Shopping Cart'],
         ['address' => 'Continue to Delivery Method']
       );
-      return view($this->pathView.'.step1');
+      return view(static::PATH_VIEW.'.step1');
     }
 
     /**
@@ -66,7 +73,7 @@ class OrderController extends Controller
     public function storeStep1()
     {
       session()->put('biodata', request()->except('_token'));
-      return redirect()->route('order.step-2');
+      return redirect()->route(static::PREFIX_ROUTE.'step-2');
     }
 
     /**
@@ -76,15 +83,16 @@ class OrderController extends Controller
     public function step2()
     {
       if (!session()->has('biodata')) return redirect()->route('order.step-1');
+
       $data['delivery_methods'] = $this->toCache('delivery_methods', function() {
         return DeliveryMethod::get();
       });
       $this->stepList('Delivery Method');
       $this->boxFooter(
-        [route('order.step-1') => 'Back to Addresses'],
+        [route(static::PREFIX_ROUTE.'step-1') => 'Back to Addresses'],
         ['delivery-method' => 'Continue to Payment Method']
       );
-      return view($this->pathView.'.step2', $data);
+      return view(static::PATH_VIEW.'.step2', $data);
     }
 
     /**
@@ -96,7 +104,7 @@ class OrderController extends Controller
       if (!request()->has('delivery')) return redirect()->back();
 
       session()->put('biodata.delivery_method_id', (int)request()->get('delivery'));
-      return redirect()->route('order.step-3');
+      return redirect()->route(static::PREFIX_ROUTE.'step-3');
     }
 
     /**
@@ -112,10 +120,10 @@ class OrderController extends Controller
       });
       $this->stepList('Payment Method');
       $this->boxFooter(
-        [route('order.step-2') => 'Back to Shipping method'],
+        [route(static::PREFIX_ROUTE.'step-2') => 'Back to Shipping method'],
         ['payment-method' => 'Continue to Order review']
       );
-      return view($this->pathView.'.step3', $data);
+      return view(static::PATH_VIEW.'.step3', $data);
     }
 
     /**
@@ -127,7 +135,7 @@ class OrderController extends Controller
       if (!request()->has('payment_method')) return redirect()->back();
 
       session()->put('biodata.payment_method_id', (int)request()->get('payment_method'));
-      return redirect()->route('order.step-4');
+      return redirect()->route(static::PREFIX_ROUTE.'step-4');
     }
 
 
@@ -141,10 +149,10 @@ class OrderController extends Controller
 
       $this->stepList('Order Review');
       $this->boxFooter(
-        [route('order.step-3') => 'Back to Payment method'],
+        [route(static::PREFIX_ROUTE.'step-3') => 'Back to Payment method'],
         ['place-order' => 'Place an order']
       );
-      return view($this->pathView.'.step4');
+      return view(static::PATH_VIEW.'.step4');
     }
 
     /**
@@ -186,7 +194,7 @@ class OrderController extends Controller
       }
       session()->flash('order.created', $created);
       session()->flash('order.message', $message);
-      return redirect()->route('order.success', [$orderId]);
+      return redirect()->route(static::PREFIX_ROUTE.'success', [$orderId]);
 
     }
 
@@ -197,7 +205,7 @@ class OrderController extends Controller
      */
     public function saveDetail($order)
     {
-      $products = collect([]);
+      $products = collect();
       foreach (Cart::content() as $key => $value) {
         $products->push([
           'order_id' => $order->id,
@@ -230,7 +238,7 @@ class OrderController extends Controller
     public function finish($orderId)
     {
       $data['order'] = Order::with('details')->where('id', $orderId)->first();
-      return view($this->pathView.'.finish', $data);
+      return view(static::PATH_VIEW.'.finish', $data);
     }
 
     /**

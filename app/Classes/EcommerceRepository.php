@@ -2,6 +2,7 @@
 namespace App\Classes;
 
 use App\Models\Master\Category;
+use App\Models\Master\Brand;
 
 /**
  * Ecommerce Repository
@@ -58,6 +59,15 @@ trait EcommerceRepository
   public function randomCategory($main = true)
   {
     return Category::main()->orderByRaw('RAND()');
+  }
+
+  public function fetchBrand($slug = '')
+  {
+    if (!$slug) {
+      return Brand::orderBy('id', 'desc');
+    }
+
+    return Brand::whereSlug($slug);
   }
 
 }

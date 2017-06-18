@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models\Master;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -24,6 +24,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Query\Builder|\App\User whereRememberToken($value)
  * @method static \Illuminate\Database\Query\Builder|\App\User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $related_id
+ * @property string $related_type
+ * @property string $username
+ * @property string $status
+ * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $related
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Master\User whereRelatedId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Master\User whereRelatedType($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Master\User whereStatus($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Master\User whereUsername($value)
  */
 class User extends Authenticatable
 {
@@ -35,7 +44,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+      'username', 'email', 'password', 'related_id', 'related_type', 'status'
     ];
 
     /**
@@ -46,4 +55,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Related with member
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
+    public function related()
+    {
+      return $this->morphTo();
+    }
 }

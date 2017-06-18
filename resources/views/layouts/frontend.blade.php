@@ -39,7 +39,7 @@
       @include('layouts.partials._footer')
     </div>
 
-    <script src="https://use.fontawesome.com/5e62eba060.js"></script>
+    <script src="{{ asset('js/plugins/5e62eba060.js') }}"></script>
     <script src="{{ asset('js/plugins/respond.min.js') }}"></script>
     <script src="{{ asset('js/plugins/jquery-1.11.0.min.js') }}"></script>
     <script src="{{ asset('js/plugins/bootstrap.min.js') }}"></script>

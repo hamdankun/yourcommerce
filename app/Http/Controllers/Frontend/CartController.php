@@ -42,7 +42,7 @@ class CartController extends Controller
     }
 
     /**
-     * update current product on the cart and save to session
+     * Update current product on the cart and save to session
      * @return \Illuminate\Support\Response
      */
     public function update($rowId)

@@ -83,9 +83,7 @@ _________________________________________________________ -->
 
         <div class="container">
             <div class="product-slider">
-              <div class="loading-product">
-                <img src="{{ asset('images/loading-content.gif') }}" alt="Load Content..">
-              </div>
+              @include('layouts.partials._loader')
               <div class="not-available-content" hidden>
                 <h1>Whoops! Product Not Available</h1>
               </div>

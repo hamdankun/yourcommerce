@@ -133,3 +133,12 @@ img.lazy {
 .push-bottom {
   margin-bottom: 50px;
 }
+
+.active-category {
+  background-color: #4fbfa8;
+  color: #f0f0f0 !important;
+}
+
+.category-menu .loading-product {
+  width: 50% !important;
+}

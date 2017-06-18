@@ -9,7 +9,8 @@ _________________________________________________________ -->
 
         <div class="panel-body">
             <ul class="nav nav-pills nav-stacked category-menu">
-                <li>
+              <li>@include('layouts.partials._loader')</li>
+                <!-- <li>
                     <a href="category.html">Men <span class="badge pull-right">42</span></a>
                     <ul>
                         <li><a href="category.html">T-shirts</a>
@@ -47,7 +48,7 @@ _________________________________________________________ -->
                         <li><a href="category.html">Accessories</a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
 
             </ul>
 

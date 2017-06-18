@@ -28,6 +28,7 @@ class CreateOrdersTable extends Migration
             $table->decimal('shipping_cost', 12, 0)->nullable();
             $table->decimal('discount_total', 12, 0)->nullable();
             $table->decimal('grand_total', 12, 0)->nullable();
+            $table->string('status', 100)->nullable()->default('paid');
             $table->timestamps();
         });
     }

@@ -29,6 +29,7 @@ _App = (function() {
 
 _App._onInit();
 
+
 // helpers function
 _Helper = (function() {
 
@@ -121,6 +122,16 @@ _Helper = (function() {
     selector.addClass('disable-link').html('<i class="fa fa-spinner fa-pulse fa-fw"></i>');
   }
 
+
+  _defineValidator = function(selector) {
+    selector.validator();
+    selector.validator().on('submit', function (e) {
+      if (e.isDefaultPrevented()) {
+        $('button.address').removeClass('disable-link').html('<i class="fa fa-shopping-cart"></i> Continue to Delivery Method');
+      }
+    });
+  }
+
   return {
     _currency: _currency,
     _defineFlag: _defineFlag,
@@ -128,6 +139,7 @@ _Helper = (function() {
     _scrollTop: _scrollTop,
     _detectErrorImg: _detectErrorImg,
     _isEmpty: _isEmpty,
+    _defineValidator: _defineValidator,
     _delayAction: _delayAction,
     _disableArea: _disableArea,
     _defineSelect2: _defineSelect2,
@@ -184,6 +196,44 @@ _Service = (function() {
     _post: _post,
     _put: _put,
     _delete: _delete
+  }
+})();
+
+// product services
+_ProductService = (function() {
+  var _categoryUl = $('.category-menu');
+  _getCategory = function() {
+    _Service._get(_appBaseUrl+'/ajax/category', {}, function(response) {
+      if (response.categories) {
+        _li = '';
+        $.each(response.categories, function(key, val) {
+          _li += '<li class="'+(breadcrumbs[0].indexOf(val.slug) > -1 ? 'active' : '')+'"" ><a href="#" class="category-header">'+val.name+'</a>'
+               +'<ul>'
+                +_loadChild(val.child, _appBaseUrl+'/all/'+val.slug)
+               +'</ul>'
+              +'</li>';
+        });
+        _categoryUl.html(_li);
+      }
+    });
+  }
+
+  _loadChild = function(child, parentUrl) {
+    if ($.isArray(child)) {
+      _liList = '';
+      $.each(child, function(key, valLevelOne) {
+        $.each(valLevelOne.child, function(key, val) {
+          _liList += '<li><a href="'+parentUrl+'/'+valLevelOne.slug+'/'+val.slug +'">'+val.name+'</a></li>'
+        });
+      });
+      return _liList;
+    }
+
+    return '';
+  }
+
+  return {
+    _getCategory: _getCategory
   }
 })();
 

@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Sales\OrderDetail whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property-read \App\Models\Sales\Order $order
+ * @property-read \App\Models\Master\Product $product
  */
 class OrderDetail extends Model
 {

@@ -43,6 +43,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Sales\OrderDetail[] $details
  * @property-read \App\Models\Master\PaymentMethod $paymentMethod
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $member
+ * @property string $order_number
+ * @property string $status
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Sales\Order whereOrderNumber($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Sales\Order whereStatus($value)
  */
 class Order extends Model
 {
@@ -50,8 +54,12 @@ class Order extends Model
    * The fillable columns
    * @var array
    */
-  protected $fillable = ['member_id', 'member_type', 'delivery_method_id', 'address_id', 'payment_method_id', 'invoice', 'date', 'total', 'tax', 'shipping_cost', 'discount_total', 'grand_total', 'order_number'];
+  protected $fillable = ['member_id', 'member_type', 'delivery_method_id', 'address_id', 'payment_method_id', 'invoice', 'date', 'total', 'tax', 'shipping_cost', 'discount_total', 'grand_total', 'order_number', 'status'];
 
+  /**
+   * The namespace master
+   * @var string
+   */
   const NAMESPACE_MASTER = 'App\\Models\\Master\\';
 
 

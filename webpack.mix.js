@@ -31,4 +31,5 @@ mix.styles('resources/assets/css/font-awesome.css', 'public/css/font-awesome.css
     .js('resources/assets/js/frontend/delivery.method.js', 'public/js/frontend/delivery.method.js')
     .js('resources/assets/js/frontend/payment.method.js', 'public/js/frontend/payment.method.js')
     .js('resources/assets/js/frontend/order.preview.js', 'public/js/frontend/order.preview.js')
+    .js('resources/assets/js/frontend/member/register.js', 'public/js/frontend/member.register.js')
     .version();

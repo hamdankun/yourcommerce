@@ -14,10 +14,10 @@ Your summary order:
   <tbody>
     @foreach($order->details as $key => $value)
       <tr>
-        <th class="text-right">{{ $key+1 }}</th>
-        <th class="text-right">{{ $value->product->name }}</th>
-        <th class="text-right">{{ $value->qty }}</th>
-        <th class="text-right">{{ $value->price }}</th>
+        <th class="text-left">{{ $key+1 }}</th>
+        <th class="text-left">{{ $value->product->name }}</th>
+        <th class="text-left">{{ $value->qty }}</th>
+        <th class="text-left">{{ $value->price }}</th>
       </tr>
     @endforeach
   </tbody>

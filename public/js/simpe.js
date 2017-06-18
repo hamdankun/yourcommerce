@@ -63,54 +63,31 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ "./resources/assets/js/frontend/address.js":
+/******/ ([
+/* 0 */
 /***/ (function(module, exports) {
 
-var _elm = $(document);
-_Module = function ($) {
+_App = function () {
   _onLoaded = function _onLoaded() {
-    _getCountry();
-    _defineValidator();
-  };
-
-  _getCountry = function _getCountry() {
-    _Service._get(_appBaseUrl + '/ajax/country', {}, function (response) {
-      if (response.countries) {
-        _option = '<option value=""></option>';
-        $.each(response.countries, function (key, val) {
-          _option += '<option value="' + val.id + '">[' + val.code + ']-' + val.name + '</option>';
-        });
-        $('#country').html(_option);
-        $('#country').val(_currentCountry).trigger('change');
-        _Helper._defineSelect2($('#country'), 'Select Country');
-      }
-    });
-  };
-
-  _defineValidator = function _defineValidator() {
-    $('.form-address').validator();
+    alert('Hello Word');
   };
 
   return {
     _onLoaded: _onLoaded
   };
-}(jQuery);
+}();
 
-_Module._onLoaded();
+_App._onLoaded();
 
 /***/ }),
-
-/***/ 2:
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__("./resources/assets/js/frontend/address.js");
+module.exports = __webpack_require__(0);
 
 
 /***/ })
-
-/******/ });
+/******/ ]);

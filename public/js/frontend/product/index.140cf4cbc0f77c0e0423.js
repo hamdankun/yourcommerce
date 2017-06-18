@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -78,6 +78,7 @@ _Module = function ($) {
 
   _onLoaded = function _onLoaded() {
     _getProductByCategory({ page: 1, per_page: 16, sorting_by: _sortingBy });
+    _ProductService._getCategory();
   };
 
   _getProductByCategory = function _getProductByCategory(config) {
@@ -125,7 +126,7 @@ _Module = function ($) {
     _back = _Helper._defineImage(product.images, 'back');
     _flags = _Helper._defineFlag(product.new);
     _urlAction = _pathCategory + '/' + product.slug;
-    _element = $('<div class="col-md-4 col-sm-6">' + '<div class="product">' + '<div class="flip-container">' + '<div class="flipper">' + '<div class="front">' + '<a href="' + _urlAction + '">' + '<img src="' + _front + '" alt="" class="img-responsive img-front">' + '</a>' + '</div>' + '<div class="back">' + '<a href="' + _urlAction + '">' + '<img src="' + _back + '" alt="" class="img-responsive img-back">' + '</a>' + '</div>' + '</div>' + '</div>' + '<a href="' + _urlAction + '" class="invisible">' + '<img src="' + _front + '" alt="" class="img-responsive img-invisible">' + '</a>' + '<div class="text">' + '<h3><a href="' + _urlAction + '">' + product.name + '</a></h3>' + '<p class="price">' + _Helper._currency(product.price, 'Rp.') + '</p>' + '<p class="buttons">' + '<a href="' + _urlAction + '" class="btn btn-default">View detail</a>' + '<a href="#" data-slug="' + product.slug + '" class="btn btn-primary add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>' + '</p>' + '</div>' + '</div>' + '</div>');
+    _element = $('<div class="col-md-4 col-sm-6">' + '<div class="product">' + '<div class="flip-container">' + '<div class="flipper">' + '<div class="front">' + '<a href="' + _urlAction + '">' + '<img src="' + _front + '" alt="" class="img-responsive img-front">' + '</a>' + '</div>' + '<div class="back">' + '<a href="' + _urlAction + '">' + '<img src="' + _back + '" alt="" class="img-responsive img-back">' + '</a>' + '</div>' + '</div>' + '</div>' + '<a href="' + _urlAction + '" class="invisible">' + '<img src="' + _front + '" alt="" class="img-responsive img-invisible">' + '</a>' + '<div class="text">' + '<h3><a href="' + _urlAction + '">' + product.name + '</a></h3>' + '<p class="price">' + _Helper._currency(product.price, 'Rp.') + '</p>' + '<p class="buttons">' + '<a href="' + _urlAction + '" class="btn btn-default disabled-when" data-trigger="click">View detail</a>' + '<a href="#" data-slug="' + product.slug + '" class="btn btn-primary add-to-cart ><i class="fa fa-shopping-cart"></i>Add to cart</a>' + '</p>' + '</div>' + '</div>' + '</div>');
     $('div.products .content').append(_element);
     _Helper._detectErrorImg(_element.find('.img-front'));
     _Helper._detectErrorImg(_element.find('.img-back'));
@@ -161,7 +162,7 @@ _elm.on('change', '.sort-by', function () {
 
 /***/ }),
 
-/***/ 8:
+/***/ 9:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__("./resources/assets/js/frontend/product/index.js");

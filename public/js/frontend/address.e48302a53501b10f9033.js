@@ -63,17 +63,34 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/assets/js/frontend/payment.method.js":
+/***/ "./resources/assets/js/frontend/address.js":
 /***/ (function(module, exports) {
 
-_elm = $(document);
+var _elm = $(document);
 _Module = function ($) {
-  _onLoaded = function _onLoaded() {};
+  _onLoaded = function _onLoaded() {
+    _getCountry();
+    _defineValidator($('.form-address'));
+  };
+
+  _getCountry = function _getCountry() {
+    _Service._get(_appBaseUrl + '/ajax/country', {}, function (response) {
+      if (response.countries) {
+        _option = '<option value=""></option>';
+        $.each(response.countries, function (key, val) {
+          _option += '<option value="' + val.id + '">[' + val.code + ']-' + val.name + '</option>';
+        });
+        $('#country').html(_option);
+        $('#country').val(_currentCountry).trigger('change');
+        _Helper._defineSelect2($('#country'), 'Select Country');
+      }
+    });
+  };
 
   return {
     _onLoaded: _onLoaded
@@ -84,10 +101,10 @@ _Module._onLoaded();
 
 /***/ }),
 
-/***/ 7:
+/***/ 2:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__("./resources/assets/js/frontend/payment.method.js");
+module.exports = __webpack_require__("./resources/assets/js/frontend/address.js");
 
 
 /***/ })

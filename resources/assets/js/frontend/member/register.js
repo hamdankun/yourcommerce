@@ -1,12 +1,13 @@
+var _elm = $(document);
 _Module = (function($) {
+
   _onLoaded = function() {
-    _ProductService._getCategory();
+    _Helper._defineValidator($('.form-register'));
   }
 
   return {
     _onLoaded: _onLoaded
   }
-})(jQuery);
-
+}) (jQuery);
 
 _Module._onLoaded();
